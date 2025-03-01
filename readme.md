@@ -4,5 +4,5 @@
 2. 支持对瓶罐使用场所的一个检测审核
 3. 支持对各类隐患进行处置反馈
 
-* [ ]  气瓶扫码流程
-  [1](https://github.com/QingyiHuang/gasbottle-wx/other1.png)
+* 气瓶扫码流程
+  [1](https://github.com/QingyiHuang/gasbottle-wx/blob/main/other1.png)
