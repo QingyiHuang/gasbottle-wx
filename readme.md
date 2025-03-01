@@ -5,4 +5,5 @@
 3. 支持对各类隐患进行处置反馈
 
 * 气瓶扫码流程
-  [1](https://github.com/QingyiHuang/gasbottle-wx/blob/main/other1.png)
+
+![1740845802251](https://github.com/QingyiHuang/gasbottle-wx/blob/main/other1.png)
