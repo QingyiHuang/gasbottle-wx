@@ -1,0 +1,22 @@
+var judgeReamaintrue = function(val) {
+	if (val && val.indexOf('超') > -1) {
+			return true
+	}
+}
+var judgeReamainfalse = function(val) {
+	if (val && !(val.indexOf('超') > -1)) {
+			return true
+	}
+}
+var judgeOption = function(val, val2) {
+	if(val.length === 3 && val2 === 2) {
+			return 24
+	} else {
+			return 12
+	}
+}
+module.exports = {
+	judgeReamaintrue: judgeReamaintrue,
+	judgeReamainfalse: judgeReamainfalse,
+	judgeOption: judgeOption
+}

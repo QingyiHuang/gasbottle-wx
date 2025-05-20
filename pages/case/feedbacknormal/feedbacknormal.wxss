@@ -1,0 +1,61 @@
+.page-content.deal {
+  padding-bottom: 128rpx;
+  background: #fff;
+}
+.van-cell {
+    font-size: 32rpx;
+    line-height: 56rpx;
+}
+.van-cell__value {
+    color: #333333;
+}
+.title {
+    padding: 0 32rpx;
+    height: 96rpx;
+    line-height: 96rpx;
+    font-weight: 500;
+    font-size: 32rpx;
+  }
+  .checkbox-title {
+    position: absolute;
+    top: 26rpx;
+    left: 45%;
+  }
+  .complete-btn {
+    font-size: 32rpx;
+    float: right;
+    color: blue;
+  }
+  .quzhengbox{
+    color: #646566;
+    font-size: 28rpx;
+    position: relative;
+    padding: 12rpx 16rpx;
+}
+.fileBox{
+    padding: 24rpx 24rpx 16rpx 24rpx;
+}
+.remark-quick-picker .van-cell::after {
+    display: none;
+}
+.remark-quick-picker {
+  font-size: 28rpx;
+  background: #fff;
+  margin-bottom: 48rpx;
+}
+.remark-quick-picker .picker-content {
+    padding: 0 32rpx;
+}
+.remark-quick-picker .van-text-area {
+    padding: 0 32rpx;
+}
+.remark-quick-picker .picker-content_wrap {
+    background-color: #f2f2f2;
+}
+.remark-quick-picker .option-item {
+    border: 2rpx solid rgb(228, 228, 228);
+    border-top: none;
+    line-height: 72rpx;
+    padding: 0 24rpx;
+    color: #666;
+}

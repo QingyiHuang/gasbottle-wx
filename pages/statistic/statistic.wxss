@@ -1,0 +1,80 @@
+.optBox{
+    height: 108rpx;
+    background-color: rgb(245, 246, 247);
+    padding-left: 36rpx;
+    display: flex;
+    align-items: center;
+}
+
+.switch-wrapper {
+    position: relative;
+    padding: 0 20rpx;
+    margin-right: 0rpx;
+}
+
+.statisticBoxTitleTextNormal{
+    margin-right: 36rpx;
+    color: rgb(32, 43, 69);
+    font-size: 40rpx;
+    font-weight: 400;
+    letter-spacing: 0rpx;
+    line-height: 108rpx;
+    padding: 0;
+}
+.statisticBoxTitleTextActive{
+  color: rgb(61, 117, 244);
+  font-size: 40rpx;
+  font-weight: 400;
+  letter-spacing: 0rpx;
+  line-height: 108rpx;
+}
+.tableOuter{
+    background-color: #ffffff;
+    padding: 24rpx;
+}
+.tableTitlePart, .tableContentPart{
+    display: grid;
+    grid-template-columns: 40% 20% 20% 20%;
+    line-height: 92rpx;
+    color: rgb(51, 51, 51);
+    font-size: 40rpx;
+}
+.tableContentPart .content:nth-of-type(1){
+  padding-left: 24rpx;
+}
+.tableContentPart .content:nth-of-type(2),.tableContentPart .content:nth-of-type(3),.tableContentPart .content:nth-of-type(4) {
+  text-align: center;
+}
+.content{
+  line-height: 50rpx;
+}
+.tableContentPart{
+  border-bottom: 2rpx solid rgb(235, 235, 235);
+}
+.tableTitlePart{
+  background: rgba(61, 117, 244, 0.08);
+}
+.tableTitlePart .title{
+  position: relative;
+  color: rgb(102, 102, 102);
+  font-size: 40rpx;
+}
+.tableTitlePart .title:nth-of-type(1){
+  padding-left: 24rpx;
+  position: relative;
+}
+.tableTitlePart .title::after{
+  content: '';
+  height: 52rpx;
+  width: 2rpx;
+  background: rgba(0, 46, 134, 0.2);
+  position: absolute;
+  right: 0;
+  top: 20rpx;
+}
+.tableTitlePart .title:nth-of-type(2),.tableTitlePart .title:nth-of-type(3),.tableTitlePart .title:nth-of-type(4) {
+  text-align: center;
+}
+.tableTitlePart .title:nth-of-type(4)::after{
+  display: none;
+}

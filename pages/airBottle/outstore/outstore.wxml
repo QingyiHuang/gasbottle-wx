@@ -1,0 +1,51 @@
+<wxs src="./outstore.wxs" module="outstoreScript"></wxs>
+<view class="container">
+  <!-- 扫码界面 -->
+  <camera class="scanner" device-position="back" flash="off" binderror="error" mode="scanCode" bindscancode="onScanCode"></camera>
+  <cover-view class="coverMask">
+    <cover-image src="../../images/mask.png" class="coverMaskImg" />
+    <cover-view class="coverMaskText">{{ scanPlaceHolder }}</cover-view>
+    <cover-view class="{{showAll ? 'overlay2' : 'overlay'}}">
+      <cover-view class="coverTitlePart">
+        <cover-view class="coverTitleLeft" bind:tap="testAdd">
+          气瓶列表
+        </cover-view>
+        <cover-view class="coverTitleRight" bind:tap="displayCard">
+          <cover-image src="../../images/display.png" class="{{showAll ? 'coverTitleRightImage rotate180' : 'coverTitleRightImage'}}" />
+        </cover-view>
+      </cover-view>
+      <cover-view class="coverDetail">
+        <cover-view class="emptyPart" wx:if="{{gasList.length <= 0}}">
+          <cover-image class="emptyimg" src="../../images/empty.png" />
+          <cover-view class="emptyPartText">
+            暂无气瓶，请扫码添加
+          </cover-view>
+        </cover-view>
+        <cover-view class="gasList" wx:if="{{gasList.length}}">
+          <cover-view class="oneGas" wx:for="{{gasList}}" wx:key="index">
+            <cover-image class="gasIcon" src="../../images/gasicon.png"></cover-image>
+            <cover-view style="padding-left: 40px;padding-top: 14px;">
+              {{item.bottleNo}}
+            </cover-view>
+            <cover-view class="outstoreTag" wx:if="{{item.trafficStatus === 1}}">已出库</cover-view>
+            <cover-image class="closeIcon" src="../../images/close.png" data-index="{{index}}" data-name="{{item.bottleNo}}" bind:tap="deleteOneGas"></cover-image>
+          </cover-view>
+        </cover-view>
+      </cover-view>
+      <cover-view class="footerPart">
+        <cover-view class="footerBtnOuterLeft">
+          <button class="footerBtn plainBtn" type="primary" plain  bind:tap="canceloutstore">撤销出库</button>
+        </cover-view>
+        <cover-view class="footerBtnOuterRight">
+          <button 
+          class="footerBtn blueBtn"
+          type="primary" 
+          bind:tap="outstoreBatch"
+        >
+          一键出库
+        </button>
+        </cover-view>
+      </cover-view>
+    </cover-view>
+  </cover-view>
+</view>

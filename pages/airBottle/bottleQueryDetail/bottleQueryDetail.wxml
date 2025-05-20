@@ -1,0 +1,37 @@
+<wxs src="./bottleQueryDetail.wxs" module="bottleQueryDetailScript"></wxs>
+<view class="container">
+	<view class="headerDetail">
+		<view class="headerDetalTitle">气瓶{{mainInfo.barCode}}</view>
+    <view class="taglist">
+      <view class="taginline {{bottleQueryDetailScript.judgeTag(mainInfo.status)}}" wx:if="{{mainInfo.statusName}}">
+        {{mainInfo.statusName}}
+      </view>
+      <!-- <view class="taginline tag2">
+        已废弃
+      </view>
+      <view class="taginline tag3">
+        检验超期
+      </view> -->
+      <view class="taginline tag5" wx:if="{{mainInfo.trafficStatusName}}">
+        {{mainInfo.trafficStatusName}}
+      </view>
+    </view>
+		<view class="oneInfo">
+			<view class="oneInfo-left">当前位置</view>
+			<view class="oneInfo-right">{{mainInfo.currentAddress || '--'}}</view>
+		</view>
+		<view class="oneInfo">
+			<view class="oneInfo-left">报废日期</view>
+			<view class="oneInfo-right">{{mainInfo.scrapDate || '--'}}</view>
+		</view>
+		<view class="oneInfo">
+			<view class="oneInfo-left">下次临检</view>
+			<view class="oneInfo-right">{{mainInfo.examineTime || '--'}}</view>
+		</view>
+	</view>
+	<view class="detailInfo" >
+    <van-cell-group inset>
+      <van-cell wx:for="{{detailInfo}}" wx:key="index" title="{{ item.name }}" value="{{ item.value }}" />
+    </van-cell-group>
+	</view>
+</view>

@@ -1,0 +1,98 @@
+/* pages/citycase/citycase.wxss */
+.scrollvue{
+	height: 100vh;
+}
+.eventPage{
+  height: 100%;
+	min-height: 100%;
+  background-color: rgb(245, 245, 245);
+  overflow: auto;
+}
+.centerMenu{
+	margin-bottom: 16rpx;
+	padding: 24rpx;
+}
+.menuPart{
+		background-color: #ffffff;
+		border-radius: 16rpx;
+		padding: 24rpx;
+		height: 100%;
+}
+.van-grid{
+  height: 100%;
+}
+.van-grid-item{
+  height: 100%;
+  font-size: 28rpx;
+  color: #2e3338;
+}
+.van-image{
+  width: 72rpx;
+  height: 72rpx;
+}
+.van-grid-item__text {
+  font-size: 28rpx;
+  color: #2e3338;
+  text-align: center;
+  font-weight: 400;
+}
+.imgIcon{
+    width: 72rpx;
+    height: 72rpx;
+}
+.bgbank{
+    width: 100%;
+    height: 30vh;
+}
+.loginPart{
+  box-sizing: border-box;
+  height: calc(100% - 30vh);
+  padding: 64rpx 36rpx;
+  background-color: rgb(243, 243, 243);
+}
+.loginBtnPart{
+  padding: 32rpx;
+  border-radius: 16rpx;
+  background-color: #ffffff;
+  box-shadow:0 10rpx 30rpx -10rpx rgba(0,0,0,.2);
+}
+.tissue{
+  font-size: 24rpx;
+  color: rgb(179, 179, 179);
+}
+.loginBtn{
+  margin-bottom: 24rpx;
+}
+.bgbankimg{
+    width: 100%;
+    height: 100%;
+}
+.mainTitle{
+  color: rgb(0, 0, 0);
+  font-size: 28rpx;
+  font-weight: 600;
+	line-height: 48rpx;
+	letter-spacing: 0rpx;
+	text-align: left;
+  display: block;
+  border-radius: 8rpx;
+  background: linear-gradient(270.00deg, rgba(161, 194, 255, 0) 50%,rgba(175, 203, 255, 0.3) 98.855%);
+  padding: 18rpx;
+  position: relative;
+  padding-left: 88rpx;
+}
+.titleIcon{
+  position: absolute;
+  left: 32rpx;
+  top: 16rpx;
+  width: 52rpx;
+  height: 52rpx;
+}
+.menuTitle{
+  color: rgb(82, 82, 82);
+  font-size: 24rpx;
+  font-weight: 400;
+}
+.red{
+  color: red;
+}

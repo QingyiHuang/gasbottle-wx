@@ -1,0 +1,18 @@
+<view class="video-container">
+  <live-player 
+    id="livePlayer"
+    src="{{currentRtmpUrl}}" 
+    autoplay="{{autoplay}}"
+    controls="{{controls}}"
+    bindstatechange="onStateChange"
+    objectFit="contain"
+  ></live-player>
+</view>
+
+<view class="control-panel">
+  <picker mode="selector" range="{{monitorPoints}}" value="{{selectedMonitorIndex}}" bindchange="onChangeMonitor" range-key="name">
+    <view class="picker-selector">
+      当前监控点: {{monitorPoints[selectedMonitorIndex].name || '请选择'}}
+    </view>
+  </picker>
+</view>

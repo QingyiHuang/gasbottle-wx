@@ -1,0 +1,67 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/statistic/statistic"
+  ],
+  "subPackages": [
+    {
+      "root": "pages/airBottle",
+      "pages": [
+        "bottleQuery/bottleQuery",
+        "bottleQueryDetail/bottleQueryDetail",
+        "instore/instore",
+        "outstore/outstore",
+        "signstore/signstore",
+        "homeInspect/homeInspect",
+        "buygas/buygas"
+      ],
+      "independent": true
+    },
+    {
+      "root": "pages/case",
+      "pages": [
+        "todolist/todolist",
+        "donelist/donelist",
+        "caselist/caselist",
+        "feedback/feedback",
+        "tododetail/tododetail",
+        "feedbacknormal/feedbacknormal"
+      ],
+      "independent": true
+    },
+    {
+      "root": "pages/enterprise",
+      "pages": [
+        "patrol/patrol",
+        "patroldetail/patroldetail",
+        "videoplay/videoplay"
+      ],
+      "independent": true
+    }
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "智慧燃气监管",
+    "navigationBarBackgroundColor": "#ffffff"
+  },
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序定位功能"
+    },
+    "scope.camera": {
+      "desc": "开启相机扫描气瓶以出入库或签收"
+    }
+  },
+  "requiredPrivateInfos": [
+    "chooseLocation",
+    "getLocation",
+    "choosePoi"
+  ],
+  "resolveAlias": {
+    "@/*": "/*"
+  }
+}

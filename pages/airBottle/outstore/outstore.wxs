@@ -1,0 +1,55 @@
+// 检查是否所有气瓶都已经出库，决定按钮是否禁用
+function isoutstoreDisabledFunc(gasList) {
+  // 如果气瓶列表有在库气瓶即可出库否则禁用
+  if (gasList.length === 0) {
+    return true;
+  }
+  for (var i = 0; i < gasList.length; i++) {
+    if (gasList[i].trafficStatus === 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
+// 计算需要出库的气瓶数量
+function needoutstoreLength(gasList) {
+  // 返回未出库气瓶的数量，如果不存在则返回 0
+  var count = 0;
+  for (var i = 0; i < gasList.length; i++) {
+    if (gasList[i].trafficStatus === 0) {
+      count++;
+    }
+  }
+  return count;
+}
+
+function canceloutstoreDisableFunc(gasList) {
+  if (gasList.length === 0) {
+    return true;
+  }
+  // 遍历 gasList 如果有气瓶在1这个状态则可以点击
+  for (var i = 0; i < gasList.length; i++) {
+    if (gasList[i].trafficStatus === 1) {
+      return false;
+    }
+  }
+  return true;
+}
+
+// 计算可以撤销出库的数量
+function canCancelLength(gasList) {
+  var count2 = 0;
+  for (var j = 0; j < gasList.length; j++) {
+    if (gasList[j].trafficStatus === 1) {
+      count2++;
+    }
+  }
+  return count2;
+}
+module.exports = {
+  isoutstoreDisabledFunc: isoutstoreDisabledFunc,
+  needoutstoreLength: needoutstoreLength,
+  canceloutstoreDisableFunc: canceloutstoreDisableFunc,
+  canCancelLength: canCancelLength
+};

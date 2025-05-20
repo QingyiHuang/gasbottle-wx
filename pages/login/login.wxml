@@ -1,0 +1,21 @@
+<scroll-view class="scrollvue">
+  <view class="eventPage">
+    <view class="bgbank">
+        <image class="bgbankimg" src="../images/banner1.png" mode="scaleToFill"/>
+    </view>
+    <view class="loginPart">
+      <view class="loginBtnPart">
+        <button class="loginBtn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">快速获取手机号</button>
+        <view class="p1 tissue red" wx:if="{{errorP}}">
+          {{errorP}}
+        </view>
+        <view class="p1 tissue">
+          1、首次使用需要先验证您的手机号码
+        </view>
+        <view class="p1 tissue">
+          2、本小程序不会收集您个人信息，手机号仅用于关联账号
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

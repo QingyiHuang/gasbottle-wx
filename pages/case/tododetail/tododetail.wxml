@@ -1,0 +1,194 @@
+<wxs src="./tododetail.wxs" module="tododetailScript"></wxs>
+<view class="detailContent">
+  <view class="swiper-container">
+    <swiper style="height: 100%;" autoplay="{{true}}" interval="{{3000}}" duration="{{500}}" circular="{{true}}">
+      <block wx:for="{{mediaList}}" wx:key="index">
+        <swiper-item>
+          <image wx:if="{{item.type === 'image'}}" class="slide-image imgback" src="{{item.src}}" bindtap="previewImage" data-url="{{item.picUrl || item.src}}"></image>
+          <audio wx:if="{{item.type === 'audio'}}" class="slide-image" poster="{{poster}}" name="{{name}}" author="{{author}}" src="{{src}}" id="myAudio" controls loop></audio>
+          <video wx:if="{{item.type === 'video'}}" class="slide-image" src="{{item.picUrl}}" bindtap="previewVideo" data-url="{{item.picUrl}}" show-center-play-btn='{{false}}' show-play-btn="{{true}}" controls picture-in-picture-mode="{{['push', 'pop']}}"></video>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class="case-details-content">
+    <view class="main-info">
+      <view class="main-info-name">
+        {{ baseInfo.caseTypeName }}
+        <view wx:if="{{baseInfo.remainTime}}" class="time-status {{baseInfo.overdue ? 'overtime' : 'leave'}}">
+          <van-icon size="16" style="margin: 0 4px 0 0" name="clock-o" />
+          {{ baseInfo.remainTime }}
+        </view>
+      </view>
+      <view class="tags">
+        <view wx:if="{{baseInfo.alarmLevelCode}}" class="tagdiv level-box">
+          <view class="level-boxbefore level-{{baseInfo.alarmLevelCode}}"></view>
+          {{ baseInfo.alarmLevel }}
+        </view>
+        <view wx:if="{{baseInfo.collected}}" class="tagdiv duban">督办</view>
+        <view wx:if="{{baseInfo.collected && baseInfo.urgeTimes > 0}}" class="tagdiv urging">
+          催办 {{ baseInfo.urgeTimes }} 次
+        </view>
+      </view>
+    </view>
+    <!-- 基本信息和处置经过 -->
+    <view class="box">
+      <view style="width: 90%; margin: auto">
+        <van-tabs bind:change="onTabChange" color="#3894FF" title-active-color="#3894FF" active="{{ active }}">
+          <van-tab title="基本信息" name="baseInfo"></van-tab>
+          <!-- <van-tab
+                wx:if="{{alarmFacePicList.length}}"
+                title="违规人脸"
+                name="facePic"
+              ></van-tab> -->
+          <van-tab title="处置经过" name="process"></van-tab>
+          <van-tab wx:if="{{baseInfo.urgeTimes > 0}}" title="催办记录" name="urgeProcess" />
+        </van-tabs>
+      </view>
+      <view class="box-info">
+        <!-- 基本信息模块 -->
+        <view class="baseModule" wx:if="{{activeName === '基本信息'}}">
+          <view class="base-info cell-info_wrap">
+            <van-popup show="{{ pop1show }}" position="bottom" closeable bind:close="onBasePopClose">
+              <view style="text-align: center; line-height: 40px;">关联报警</view>
+              <view style="padding: 12px;">
+                <view class="relative-list">
+                  <van-row style="background-color: #eaeaea;">
+                    <van-col span="14">事件编号</van-col>
+                    <van-col span="10">违规类型</van-col>
+                  </van-row>
+                  <van-row wx:for="{{relativeList}}" wx:key="index">
+                    <van-col span="14">{{ item.alarmCode }}</van-col>
+                    <van-col span="10">{{ item.caseTypName }}</van-col>
+                  </van-row>
+                </view>
+              </view>
+            </van-popup>
+            <van-cell-group>
+              <block wx:for="{{baseInfos}}" wx:key="index">
+                <van-cell wx:if="{{!item.isHidden}}" class="base-info__item left-value" title="{{item.label}}" value="{{item.value || '--'}}" data-item="{{item}}" clickable bindtap="onClickCell1">
+                  <van-icon slot="right-icon" wx:if="{{item.value && item.rightIcon}}" class="right-icon" name="{{item.rightIcon}}" color="#1989fa" size="20" />
+                </van-cell>
+              </block>
+            </van-cell-group>
+            <van-action-sheet show="{{ showAction }}" actions="{{ actions }}" bind:close="onClose" bind:select="onSelectAction" cancel-text="取消" close-on-click-action />
+          </view>
+        </view>
+        <!-- 催办记录模块 -->
+        <view class="urgeModule" wx:if="{{activeName === '催办记录'}}">
+          <view class="process-list">
+            <view wx:if="{{urgeloading}}" class="empty-process">
+              正在获取催办经过...
+            </view>
+            <block wx:else>
+              <view class="stepsBox">
+                <view class="oneStep" wx:for="{{urgeRecords}}" wx:key="index">
+                  <image src="../images/icon-2.png" mode="widthFix" class="stepPoint"></image>
+                  <view class="time">{{ item.urgeTime }}</view>
+                  <view class="action">
+                    <b>{{ item.urgePerson }}</b>
+                    在处置阶段进行了催办操作
+                  </view>
+                  <view class="info">催办意见：{{ item.urgeMsg }}</view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+        <!-- 处置经过模块 -->
+        <view class="processModule" wx:if="{{activeName === '处置经过'}}">
+          <view class="process-list">
+            <block wx:if="{{_isnotEmpty}}">
+              <view class="stepsBox">
+                <view class="oneStep" wx:for="{{processList}}" wx:key="index">
+                  <image src="../../images/oneStep.png" mode="widthFix" class="stepPoint"></image>
+                  <view class="time"><text class="timePerson">{{item.chargePersonName || '--'}}</text>{{ item.stageName }}</view>
+                  <view class="timeLine">{{item.startTime || '--'}}</view>
+                  <view class="infoBox" wx:if="{{ item.picUrls || item.remark || item.dealTypeName}}">
+                    <view class="info">{{ item.dealTypeName || '--' }}</view>
+                    <view class="info" wx:if="{{item.remark}}" style="margin: 0 0 8px">{{ item.remark || '--' }}</view>
+                    <view wx:if="{{item.picUrls}}">
+                      <van-row gutter="16">
+                        <van-col span="8" wx:for="{{item.picUrls}}" wx:key="unique" wx:for-item="media" style="margin: 0 0 12px">
+                          <image class="media-box" wx:if="{{media.fileMediaType === 'image'}}" src="{{media.picThumbnailUrl}}" bindtap="previewImage" data-url="{{media.picUrl}}"></image>
+                          <audio class="media-box" wx:if="{{media.fileMediaType === 'audio'}}" src="{{media.picThumbnailUrl}}" poster="{{poster}}" name="{{name}}" author="{{author}}" controls loop></audio>
+                          <video class="media-box" wx:if="{{media.fileMediaType === 'video'}}" src="{{media.picUrl}}" bindtap="previewVideo" data-url="{{media.picUrl}}" show-center-play-btn='{{false}}' show-play-btn="{{true}}" controls picture-in-picture-mode="{{['push', 'pop']}}"></video>
+                        </van-col>
+                      </van-row>
+                    </view>
+                  </view>
+                  <!-- 此处为巡查的相关罗列 -->
+                  <block wx:if="{{item.inspectItemResultVOS && item.inspectItemResultVOS.length}}">
+                    <view class="infoBox" wx:for="{{item.inspectItemResultVOS}}" wx:key="unique" wx:for-item="inspectItem">
+                      <view class="info" style="font-weight: 500;color: rgb(51, 51, 51);">{{ inspectItem.itemName || '--' }}</view>
+                      <view class="info" style="margin: 0 0 8px">{{ inspectItem.remark || '--' }}</view>
+                      <view>
+                        <van-row gutter="16">
+                          <van-col span="8" wx:for="{{inspectItem.picUrls}}" wx:key="unique" wx:for-item="media" style="margin: 0 0 12px">
+                            <image class="media-box" wx:if="{{media.fileMediaType === 'image'}}" src="{{media.picThumbnailUrl}}" bindtap="previewImage" data-url="{{media.picUrl}}"></image>
+                            <audio class="media-box" wx:if="{{media.fileMediaType === 'audio'}}" src="{{media.picThumbnailUrl}}" poster="{{poster}}" name="{{name}}" author="{{author}}" controls loop></audio>
+                            <video class="media-box" wx:if="{{media.fileMediaType === 'video'}}" src="{{media.picUrl}}" bindtap="previewVideo" data-url="{{media.picUrl}}" show-center-play-btn='{{false}}' show-play-btn="{{true}}" controls picture-in-picture-mode="{{['push', 'pop']}}"></video>
+                          </van-col>
+                        </van-row>
+                      </view>
+                      <view class="info" style="font-weight: 500;color: rgb(51, 51, 51);" wx:if="{{inspectItem.dealMessage}}">处置意见:{{ inspectItem.dealMessage || '--' }}</view>
+                      <view>
+                        <van-row gutter="16">
+                          <van-col span="8" wx:for="{{inspectItem.dealPicUrls}}" wx:key="unique" wx:for-item="media" style="margin: 0 0 12px">
+                            <image class="media-box" wx:if="{{media.fileMediaType === 'image'}}" src="{{media.picThumbnailUrl}}" bindtap="previewImage" data-url="{{media.picUrl}}"></image>
+                            <audio class="media-box" wx:if="{{media.fileMediaType === 'audio'}}" src="{{media.picThumbnailUrl}}" poster="{{poster}}" name="{{name}}" author="{{author}}" controls loop></audio>
+                            <video class="media-box" wx:if="{{media.fileMediaType === 'video'}}" src="{{media.picUrl}}" bindtap="previewVideo" data-url="{{media.picUrl}}" show-center-play-btn='{{false}}' show-play-btn="{{true}}" controls picture-in-picture-mode="{{['push', 'pop']}}"></video>
+                          </van-col>
+                        </van-row>
+                      </view>
+                    </view>
+                  </block>
+
+                </view>
+              </view>
+            </block>
+            <view wx:else class="empty-process">
+              {{ loading ? "正在获取办理经过..." : "暂无办理经过" }}
+            </view>
+          </view>
+        </view>
+      </view>
+      <view style="padding: 24px 0px 12px; " wx:if="{{!typeDone && !isSupervision}}">
+        <van-row :gutter="16">
+          <van-col span="{{tododetailScript.judgeOption(options, index)}}" wx:for="{{options}}" wx:key="index" style="margin: 0 0 12px">
+            <van-button wx:if="{{!index}}" block round plain type="info" data-info="{{item}}" bindtap="toDeal">
+              {{ item.name }}
+            </van-button>
+            <van-button wx:else block round data-info="{{item}}" type="info" bindtap="toDeal">
+              {{ item.name }}
+            </van-button>
+          </van-col>
+        </van-row>
+      </view>
+      <view style="padding: 24px 0px 12px; " wx:elif="{{!typeDone && isSupervision}}">
+        <van-row :gutter="16">
+          <van-col span="12">
+            <van-button wx:if="{{collected}}" block round plain type="info" bindtap="endDuban">
+              结束督办
+            </van-button>
+            <van-button wx:elif="{{!isEnd}}" block round plain type="info" bindtap="duban">
+              督办
+            </van-button>
+          </van-col>
+          <van-col wx:if="{{!isEnd}}" span="12">
+            <van-button block round type="info" bindtap="cuiban">
+              催办
+            </van-button>
+          </van-col>
+        </van-row>
+        <!-- 督办催办box -->
+        <van-dialog use-slot title="催办" show="{{ showDialog }}" show-cancel-button confirmButtonText="发送" confirmButtonColor="#3D75F4" bind:confirm="sendContentConfirm">
+          <view style="padding: 0 16px 12px">
+            <van-field maxlength="{{64}}" value="{{message}}" bind:change="onDuBanChange" placeholder="请输入意见..." />
+          </view>
+        </van-dialog>
+      </view>
+    </view>
+  </view>
+  <van-dialog id="van-dialog" />
+</view>

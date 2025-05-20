@@ -1,0 +1,7 @@
+<!--pages/index/footer.wxml-->
+<view class="acomponent">
+  这是一个组件，youknow how to use 
+  <block wx:for="{{content}}" wx:key="id">
+    {{item.content}}
+  </block>
+</view>

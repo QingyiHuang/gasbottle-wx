@@ -1,0 +1,361 @@
+/* pages/case/caselist/caselist.wxss *//* pages/list/list.wxss */  
+.container {  
+	padding: 20rpx;  
+	box-sizing: border-box;
+}  
+	
+.list-item {  
+	margin-bottom: 20rpx;  
+	/* 其他样式 */  
+}  
+	
+.loading-more {  
+	text-align: center;  
+	margin-top: 40rpx;  
+	/* 其他样式 */  
+}  
+	
+.no-more-data {  
+	text-align: center;  
+	margin-top: 40rpx;  
+	/* 其他样式 */  
+}
+.list-item {
+	/* height: 180px; */
+	background-color: #ffffff;
+	margin: 8rpx 16rpx;
+	border-radius: 16rpx;
+	box-shadow: 0 10rpx 30rpx -10rpx rgba(0, 0, 0, 0.226);
+}
+.cardTitle{
+		height: 76rpx;
+		width: 100%;
+		padding: 0 20rpx;
+		position: relative;
+		line-height: 76rpx;
+}
+.titleLine{
+		content: '';
+		position: absolute;
+		width: calc(100% - 80rpx);
+		left: 20rpx;
+		bottom: 0px;
+		height: 2rpx;
+		background-color: rgba(128, 128, 128, 0.295);
+}
+.imageIcon{
+	width: 48rpx;
+	height: 48rpx;
+	position: relative;
+	top: 12rpx;
+}
+.titletext{
+	font-size: 32rpx;
+	color: #333333;
+	margin-left: 16rpx;
+	width: 460rpx;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.list-item-state {
+	position: absolute;
+	right: 28rpx;
+	top: 16rpx;
+	width: 136rpx;
+	height: 48rpx;
+	font-size: 24rpx;
+	padding: 4rpx 0 0 20rpx;
+	color: #ffffff;
+	display: flex;
+	justify-content: center;
+}
+.imgicontitle{
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+}
+.tagtitle{
+		position: relative;
+		z-index: 1;
+		line-height: 16px;
+}
+.cardcontent{
+		padding: 0;
+		min-height: 160rpx;
+		position: relative;
+    padding: 24rpx 0;
+    
+}
+.leftImg{
+	width: 40%;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: flex;  
+	align-items: center; /* 垂直居中 */  
+	justify-content: center; /* 水平居中 */  
+	padding: 32rpx 16rpx;
+	box-sizing: border-box;
+}
+.leftImginner{
+		width: 100%;
+		border-radius: 16rpx;
+		max-height: 100%;
+}
+.rightInfo{
+		margin-left: 40%;
+		position: relative;
+		padding: 24rpx 16rpx 12rpx 0px;
+		
+}
+.rightInfoRight{
+		position: absolute;
+		right: 0;
+		top: 0;
+		height: 100%;
+		width: 52rpx;
+		display: flex;  
+		justify-content: center; /* 水平居中 */  
+		align-items: center; /* 垂直居中 */  
+		padding-right: 12rpx;
+}
+.rightInfoLeft{
+	margin-right: 52rpx;
+}
+.rightInfoRightIcon{
+	width: 52rpx;
+	height: 52rpx;
+}
+.infopimg{
+		width: 48rpx;
+		height: 48rpx;
+		position: absolute;
+		left: 0;
+		top: -4rpx;
+}
+.oneinfo{
+	display: flex;
+	align-items: center;
+	position: relative;
+	padding-left: 4rpx;
+	font-size: 28rpx;
+	color: #666666;
+	word-break: break-all;
+}
+.state-box {
+	display: flex;
+	align-items: center;
+	margin-top: 8rpx;
+}
+.level-point {
+	width: 16rpx;
+	height: 16rpx;
+	border-radius: 50%;
+	margin-right: 8rpx;
+}
+.red-point {
+	background: #f55545;
+}
+.green-point {
+	background: #27d045;
+}
+.blue-point {
+	background: #0089ff;
+}
+.orange-point {
+	background: #ff952c;
+}
+.jinji {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 24rpx;
+	padding: 0 8rpx;
+	height: 40rpx;
+	border: 2rpx solid rgba(102, 102, 102, 0.5);
+	border-radius: 40rpx;
+	color: #666666;
+	margin-right: 16rpx;
+	margin-left: 8rpx;
+}
+.duban {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 24rpx;
+	width: 112rpx;
+	height: 40rpx;
+	background: rgba(33, 150, 243, 0.1);
+	border: 2rpx solid rgba(33, 150, 243, 0.5);
+	border-radius: 40rpx;
+	color: #0089ff;
+	margin-right: 16rpx;
+}
+.cuiban {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 24rpx;
+	width: 112rpx;
+	height: 40rpx;
+	background: rgba(245, 85, 69, 0.1);
+	border: 2rpx solid rgba(245, 85, 69, 0.5);
+	border-radius: 40rpx;
+	color: #f55545;
+	margin-right: 16rpx;
+}
+.tindent{
+	text-indent: 44rpx;
+	margin-bottom: 8rpx;
+}
+.over-time {
+	position: absolute;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 48rpx;
+	opacity: 0.7;
+	border-radius: 0px 0px 8rpx 8rpx;
+	font-size: 24rpx;
+	color: #ffffff;
+}
+.red-time {
+	background-image: linear-gradient(180deg, #ff2c0033 0%, #ff2c00 100%);
+}
+.popur-time {
+	background-image: linear-gradient(180deg, #3d75f433 0%, #3d75f4 100%);
+}
+/* 搜索框区域，可以展开actionsheet */
+.searchBox{
+	width: 100%;
+	position: relative;
+}
+.searchPart{
+	margin-right: 96rpx;
+}
+.filterPart{
+	width: 96rpx;
+	height: 100%;
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding-top: 20rpx;
+}
+.filter-btn {
+	width: 64rpx;
+	height: 64rpx;
+	margin: 0 auto;
+}
+.filter-btnImg{
+		width: 64rpx;
+		height: 64rpx;
+}
+
+/*   从这里起为filter搜索框的样式 */
+.filter-popup{
+		position: relative;
+		z-index: 1;
+}
+.filter-li {
+	padding: 0px 20rpx 0;
+}
+.li-title {
+	font-size: 28rpx;
+	color: #999999;
+	font-weight: 400;
+}
+.li-value {
+	display: flex;
+	height: 100rpx;
+	align-items: center;
+	justify-content: space-between;
+}
+.filter-popup .btn {
+	width: 128rpx;
+	height: 64rpx;
+	border-radius: 32rpx;
+	color: #333333;
+	background: #e0e0e0;
+	padding: 0 20rpx;
+}
+.btn-s {
+	width: 128rpx;
+	height: 64rpx;
+	background: rgba(2, 101, 255, 0.08);
+	border: 2rpx solid rgba(61, 117, 244, 0.5);
+	border-radius: 32rpx;
+	color: #3d75f4;
+	padding: 0 20rpx;
+}
+.btn-flag {
+	width: 16rpx;
+	height: 16rpx;
+	border-radius: 50%;
+	display: inline-flex;
+}
+.wid112 {
+	width: 224rpx;
+}
+.filter-popup{
+		box-sizing: border-box;
+}
+.filter-popup .van-radio__icon {
+	height: 100%;
+}
+.time-field {
+	height: 64rpx;
+	border-radius: 32rpx;
+	color: #333333;
+	background: #e0e0e0;
+	align-items: center;
+}
+.filter-popup .footer {
+	width: 100%;
+	height: 144rpx;
+	display: grid;
+	/* padding: 0 12px; */
+	grid-template-columns: 48% 48%;
+}
+.footer .search {
+	width: 328rpx;
+	height: 80rpx;
+}
+.footer .reset {
+	width: 328rpx;
+	height: 80rpx;
+}
+.van-picker__toolbar{
+		position: relative;
+		height: 92rpx;
+		width: 100%;
+}
+.van-picker__toolbar .van-picker__cancel{
+	width: 20%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	text-align: center;
+}
+.van-picker__confirm{
+	width: 20%;
+	position: absolute;
+	right: 0;
+	top: 0;
+	text-align: center;
+}
+.diypickerbtn{
+		height: 92rpx;
+		line-height: 92rpx;
+		text-align: center;
+}
+.van-picker__title{
+		text-align: center;
+		line-height: 92rpx;
+}

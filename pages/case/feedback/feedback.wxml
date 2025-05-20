@@ -1,0 +1,95 @@
+<wxs src="./feedback.wxs" module="patroldetailScript"></wxs>
+<view class="container">
+  <view class="detailInfo">
+    <view class="box">
+      <van-cell-group inset>
+        <van-cell title="巡检异常清单" value="" />
+        <van-cell wx:for="{{ checkList }}" wx:key="index" data-index="{{ index }}" data-value="{{ item }}" title="{{ item.itemName }}" is-link bindtap="itemClick">
+          <view class="{{ item.ischecked ? 'valuePart normal' : 'valuePart gray' }}">
+            <view class="valueP">
+              {{ item.ischecked ? '已反馈' : '' }}
+            </view>
+            <image src="../../images/success.png" class="valueImage" wx:if="{{item.ischecked}}" />
+          </view>
+        </van-cell>
+      </van-cell-group>
+    </view>
+  </view>
+  <view class="fixedBtnPart">
+    <van-button type="primary" color="rgb(61, 117, 244)" round block bind:tap="finishedPatrol" disabled="{{!checked}}">提交反馈</van-button>
+  </view>
+  <van-popup show="{{ dialogShow }}" round closeable position="bottom" bind:close="onClose1">
+    <view class="tabPart">
+      <view class="popTitle2">
+        反馈({{currentObject.index + 1}}/{{checkList.length}})
+      </view>
+      <view class="formOuter">
+        <view class="{{patroldetailScript.currentIsRequire(currentObject, checkList) ? 'formTitle formTitleReuire' : 'formTitle'}}">
+          处置说明
+        </view>
+        <van-field class="van-text-area" value="{{currentObject.deal.message}}" rows="3" autosize type="textarea" maxlength="100" placeholder="请输入处置说明，不超过100个汉字" bind:change="onTextFieldChange"/>
+        <view class="formTitle">
+          图片上传
+        </view>
+        <view class="imgTissue">
+          支持JPG、PNG格式，最大10MB，最多上传3张
+        </view>
+        <view class="fileBox">
+          <van-uploader max-count="3" accept="image" file-list="{{ fileList2 }}" bind:after-read="afterRead" bind:delete="afterDelete" deletable />
+        </view>
+      </view>
+      <view class="pupBtnFooter2">
+        <view class="btnOuter2 footerBtnOuter">
+          <van-button type="primary" color="rgb(61, 117, 244)" round block bind:tap="checkNext">{{ currentObject.index + 1 < checkList.length ? '保存并查看下一项' : '完成检查'}}</van-button>
+        </view>
+      </view>
+    </view>
+  </van-popup>
+  <van-popup show="{{ dialogShow2 }}" round closeable position="bottom" bind:close="onClose">
+    <view class="tabPart">
+      <view class="popTitle">
+        巡查异常清单({{currentObject.index + 1}}/{{checkList.length}})
+      </view>
+      <view class="popTissue">
+        <view class="tissueTitle">
+          {{currentObject.itemName}}
+        </view>
+        <view class="tissueDetail">
+          {{currentObject.itemRule}}
+        </view>
+      </view>
+      <view class="formOuter2">
+        <view class="oneItemInfo">
+          <view class="itemInfoTitle titleBox">
+            检查结果
+            <view class="{{currentObject.itemStatus === '1' ? 'checkStatus2' : 'checkStatus'}}">
+              <image src="../../images/success.png" class="checkStatusImg" wx:if="{{currentObject.itemStatus === '1'}}" />
+              <image src="../../images/error.png" class="checkStatusImg" wx:if="{{currentObject.itemStatus === '2'}}" />
+              {{currentObject.statusName || '未巡检'}}
+            </view>
+          </view>
+        </view>
+        <view class="oneItemInfo">
+          <view class="itemInfoTitle titleBox">描述信息</view>
+          <view class="itemInfoDetail">
+            {{currentObject.remark || '--'}}
+          </view>
+        </view>
+        <view class="oneItemInfo">
+          <view class="itemInfoTitle titleBox">图片</view>
+          <view class="itemInfoDetail">
+            <image class="infoImage" wx:for="{{currentObject.picUrls}}" wx:key="index" src="{{patroldetailScript.handleImagePreview(item.picUrl)}}" bind:tap="previewSingleImg"/>
+          </view>
+        </view>
+      </view>
+      <view class="pupBtnFooter">
+        <view class="footerBtnOuter btnOuter">
+          <van-button round block bind:tap="previewNext">{{ currentObject.index + 1 < checkList.length ? '下一项' : '完成'}}</van-button>
+        </view>
+        <view class="btnOuter2 footerBtnOuter">
+          <van-button type="primary" color="rgb(61, 117, 244)" round block bind:tap="toFeedBack">反馈</van-button>
+        </view>
+      </view>
+    </view>
+  </van-popup>
+</view>
