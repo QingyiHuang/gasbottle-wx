@@ -1,0 +1,17 @@
+var judgeTag = function(statu) {
+  switch (statu) {
+    case 0: 
+      return 'tag1';
+    case 1:
+      return 'tag2';
+    case 2:
+      return 'tag22';
+    case 3:
+      return 'tag3';
+    default:
+      return 'tag4';
+  }
+}
+module.exports = {
+  judgeTag: judgeTag
+}

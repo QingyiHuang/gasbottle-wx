@@ -1,0 +1,195 @@
+<page-meta page-style="{{ actionActive ? 'overflow: hidden;' : '' }}" />
+<wxs src="./donelist.wxs" module="todoScript"></wxs>
+<view class="container">
+  <block>
+    <!-- 搜索违规地址框 -->
+    <view class="searchBox" style="z-index: 1;">
+      <view class="searchPart">
+        <van-search placeholder="请输入地名" bind:change="keywordChange" bind:search="keywordChange" />
+      </view>
+      <view class="filterPart">
+        <!-- :class="popupVisible ? 'active' : ''" -->
+        <view class="filter-btn" bindtap="showSearchAction">
+          <image wx:if="{{!actionActive}}" src="../../images/btn-screen-n.png" class="filter-btnImg" />
+          <image wx:else src="../../images/btn-screen-s.png" class="filter-btnImg" />
+        </view>
+      </view>
+    </view>
+  </block>
+  <scroll-view scroll-y="true" bindscrolltolower="loadMore" refresher-enabled="{{true}}" refresher-threshold="{{45}}" refresher-triggered="{{refreshing}}" bindrefresherrefresh="refreshScroll" style="height: calc(100vh - 100px);">
+    <block>
+      <block wx:for="{{listData}}" wx:key="index">
+        <view class="list-item" data-info="{{item}}" bindtap="todetail">
+          <!-- 列表项内容 -->
+          <!-- <view class="viewimage">
+                    <image src=""/>
+                </view> -->
+          <view class="cardTitle">
+            <image src="../../images/icon-case.png" class="imageIcon" />
+            <text class="titletext">{{item.caseTypeName}}</text>
+            <view class="titleLine"></view>
+            <view class="list-item-state red-card" wx:if="{{item.caseStatus == 'check'}}">
+              <image class="imgicontitle" src="../../images/red-card.png" style="width: 100%;height: 100%;">
+              </image>
+              <span class="tagtitle">
+                待核查
+              </span>
+            </view>
+            <view class="list-item-state yellow-card" wx:elif="{{item.caseStatus == 'deal'}}">
+              <image class="imgicontitle" src="../../images/yellow-card.png" style="width: 100%;height: 100%;">
+              </image>
+              <span class="tagtitle">
+                待处置
+              </span>
+            </view>
+            <view class="list-item-state blue-card" wx:elif="{{item.caseStatus == 'assign'}}">
+              <image class="imgicontitle" src="../../images/blue-card.png" style="width: 100%;height: 100%;">
+              </image>
+              <span class="tagtitle">
+                待派遣
+              </span>
+            </view>
+            <view class="list-item-state gray-card" wx:elif="{{item.caseStatus == 'cancel'}}">
+              <image class="imgicontitle" src="../../images/gray-card.png" style="width: 100%;height: 100%;">
+              </image>
+              <span class="tagtitle">
+                已销案
+              </span>
+            </view>
+            <view class="list-item-state green-card" wx:elif="{{item.caseStatus == 'end'}}">
+              <image class="imgicontitle" src="../../images/green-card.png" style="width: 100%;height: 100%;">
+              </image>
+              <span class="tagtitle">
+                已结案
+              </span>
+            </view>
+            <view class="list-item-state popur-card" wx:elif="{{item.caseStatus == 'create'}}">
+              <image class="imgicontitle" src="../../images/popur-card.png" style="width: 100%;height: 100%;">
+              </image>
+              <span class="tagtitle">
+                待立案
+              </span>
+            </view>
+            <view class="list-item-state popur-card" wx:else>
+              <image class="imgicontitle" src="../../images/popur-card.png" style="width: 100%;height: 100%;">
+              </image>
+              <span class="tagtitle">
+                {{ item.caseStatusName }}
+              </span>
+            </view>
+          </view>
+          <view class="cardcontent">
+            <view class="leftImg">
+              <view style="width: 100%; height: 100%; position: relative;">
+
+                <image wx:if="{{!item.alarmPicThumbnailUrl}}" src="../../images/default-image.png" mode="widthFix" class="leftImginner" />
+                <image wx:else src="{{item.alarmPicThumbnailUrl}}" mode="scaleToFill" class="leftImginner" />
+              </view>
+            </view>
+            <view class="rightInfo">
+              <view class="rightInfoLeft">
+                <!-- 市政显示问题编号 -->
+                <view class="oneinfo" wx:if="{{item.caseFrom === 'bmunicipal'}}">
+                  <image src="../../images/icon-info-no.png" class="infopimg" />
+                  <text class="tindent">NO.{{ item.caseNo }}</text>
+                </view>
+                <!-- 门前三包显示店铺名称 -->
+                <view class="oneinfo" wx:if="{{item.relationShopName}}">
+                  <image src="../../images/icon-info-shop.png" class="infopimg" />
+                  <text class="tindent">{{ data.relationShopName }}</text>
+                </view>
+                <!-- 时间 -->
+                <view class="oneinfo">
+                  <image src="../../images/icon-info-time.png" class="infopimg" />
+                  <text class="tindent">{{item.alarmTime}}</text>
+                </view>
+                <!-- 地址 -->
+                <view class="oneinfo">
+                  <image src="../../images/icon-info-address.png" class="infopimg" />
+                  <text class="tindent">{{item.alarmPlace || '--'}}</text>
+                </view>
+                <!-- 状态 -->
+                <view class="state-box">
+                  <view class="jinji" wx:if="{{item.abnormalInspectNum && item.abnormalInspectNum > 0}}">
+                    <view wx:if="{{item.abnormalInspectNum && item.abnormalInspectNum > 0}}" class="level-point red-point"></view>
+                    <view wx:else class="level-point green-point"></view>
+                    <text>{{item.abnormalInspectNum && item.abnormalInspectNum > 0  ? '共' + item.abnormalInspectNum + '个异常项' : '正常'}}</text>
+                  </view>
+                  <view class="duban" wx:if="{{item.collected}}">督办</view>
+                  <view class="cuiban" wx:if="{{item.urgeTimes > 0}}">
+                    催办{{ item.urgeTimes }}次
+                  </view>
+                </view>
+              </view>
+              <view class="rightInfoRight" data-location="{{item}}" catchtap="gotolocation">
+                <van-icon color="#2080f7" name="location" custom-class="rightInfoRightIcon" size="26px" />
+              </view>
+            </view>
+          </view>
+
+        </view>
+      </block>
+      <!-- 加载更多提示 -->
+      <view wx:if="{{loadingMore}}" class="loading-more">加载中...</view>
+      <!-- 没有更多数据提示 -->
+      <view wx:if="{{noMoreData}}" class="no-more-data">没有更多数据了</view>
+    </block>
+  </scroll-view>
+  <!--这里是搜索框右边的附加搜索条件  -->
+  <view class="filter-popup">
+    <van-popup show="{{ actionActive }}" round position="top" custom-style="padding: 2px 10px 4px 10px; margin-top: 60px;" bind:close="onfilterPopUpClose" overlay="{{false}}" duration="{{300}}" lock-scroll>
+      <view class="filter-li">
+        <view class="li-title">问题等级</view>
+        <van-radio-group value="{{ searchForm.alarmLevel }}" bind:change="onChangeWt" direction="horizontal" class="li-value">
+          <van-radio name="">全部</van-radio>
+          <van-radio name="{{item.code}}" wx:for="{{alarmLevelList}}" wx:key="index">{{item.name}}</van-radio>
+        </van-radio-group>
+      </view>
+      <view class="filter-li">
+        <view class="li-title">是否超期</view>
+        <van-radio-group value="{{ searchForm.overTime }}" bind:change="onChangeOt" direction="horizontal" class="li-value">
+          <van-radio name="">全部</van-radio>
+          <van-radio name="{{true}}">超期</van-radio>
+          <van-radio name="{{false}}">未超期</van-radio>
+        </van-radio-group>
+      </view>
+      <view class="filter-li">
+        <view class="li-title">违规类型</view>
+        <view class="li-value">
+          <view>
+            <van-field class="time-field" readonly clickable name="datetimePicker" value="{{caseTypeName}}" placeholder="选择违规类型" bindtap="openTypePicker" />
+            <van-popup show="{{ showTypePicker }}" round bind:close="closeTypePicker" position="bottom">
+              <view class="van-picker__toolbar">
+                <view class="diypickerbtn van-picker__cancel" bindtap="resetSelectType">
+                  重置
+                </view>
+                <view class="van-ellipsis van-picker__title">违规类型选择</view>
+                <view class="diypickerbtn van-picker__confirm" bindtap="finishedSelectType">
+                  确认
+                </view>
+              </view>
+              <van-tree-select height="{{266}}" items="{{vioTypeList}}" active-id="{{vioTypeId}}" main-active-index="{{vioCategoryIndex}}" bind:click-nav="onClickNav" bind:click-item="onClickItem" />
+            </van-popup>
+          </view>
+        </view>
+      </view>
+
+
+      <view class="filter-li">
+        <view class="li-title">违规时间</view>
+        <view class="li-value" style="margin-bottom: 20px;">
+          <van-field class="time-field" readonly clickable name="datetimePicker" value="{{searchForm.alarmTimeStart}}" data-id="start" placeholder="选择开始时间" bindtap="opentimePicker" />
+          -
+          <van-field class="time-field" readonly clickable data-id="end" name="datetimePicker" value="{{searchForm.alarmTimeEnd}}" placeholder="选择结束时间" bindtap="opentimePicker" />
+          <van-popup show="{{timePickerShow}}" round position="bottom" style="height: 80%">
+            <van-datetime-picker type="datetime" value="{{ currentDate }}" max-date="{{ maxDate }}" bind:input="onInput" bind:cancel="onTimeCancel" bind:confirm="onTimeConfirm" />
+          </van-popup>
+        </view>
+      </view>
+      <view class="footer">
+        <van-button block round class="search" style="width: 100%;" type="default" bindtap="searchReset">重置</van-button>
+        <van-button block round class="reset" style="width: 100%;" type="info" bindtap="search">查看</van-button>
+      </view>
+    </van-popup>
+  </view>
+</view>

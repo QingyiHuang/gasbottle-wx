@@ -1,0 +1,4 @@
+/* pages/index/footer.wxss */
+.acomponent{
+  background-color: rosybrown;
+}

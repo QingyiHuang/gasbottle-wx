@@ -1,0 +1,40 @@
+<!--pages/enterprise/patrol/patrol.wxml-->
+<view class="container">
+  <view class="headerBox">
+    <view class="search-filter">
+      <van-search style="flex: 1;" shape="round" placeholder="请输入搜索关键词" bind:search="onSearch" value="{{ searchForm.keyWord }}" bind:change="onSearchChange" />
+      <van-dropdown-menu>
+        <van-dropdown-item value="{{ timeoutFilter }}" options="{{ timeoutOptions }}" bind:change="onTimeoutChange" />
+      </van-dropdown-menu>
+    </view>
+    <van-tabs style="width: 100%;" bind:change="onTabChange" color="#3894FF" title-active-color="#3894FF" active="{{ searchForm.taskStatus }}">
+      <van-tab title="全部{{totalNum}}" name=""></van-tab>
+      <van-tab title="待处理{{inProgressNum}}" name="1"></van-tab>
+      <van-tab title="待审核{{inAuditNum}}" name="4"></van-tab>
+      <van-tab title="已完成{{completeNum}}" name="3"></van-tab>
+    </van-tabs>
+  </view>
+  <scroll-view scroll-y="true" bindscrolltolower="loadMore" refresher-enabled="{{true}}" refresher-threshold="{{45}}" refresher-triggered="{{refreshing}}" bindrefresherrefresh="refreshScroll" class="scrollBox">
+    <block>
+      <block wx:for="{{listData}}" wx:key="index">
+        <view class="list-item" data-info="{{item}}" bindtap="todetail">
+          <text class="list-item-title">{{item.name}}</text>
+          <view class="list-item-tag" wx:if="{{item.auditConclusion === '2'}}">退</view>
+          <view class="list-item-tag2" wx:if="{{item.auditConclusion === '1'}}">完</view>
+          <view class="list-item-content">
+            <view class="oneInfo">
+              <view class="list-item-left">任务时间</view>
+              <view class="list-item-right">{{item.startValidTime}}</view>
+            </view>
+            <view class="oneInfo">
+              <view class="list-item-left">巡查企业</view>
+              <view class="list-item-right">{{item.companyName}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+      <view wx:if="{{loadingMore}}" class="loading-more">加载中...</view>
+      <view wx:if="{{noMoreData}}" class="no-more-data">没有更多数据了</view>
+    </block>
+  </scroll-view>
+</view>

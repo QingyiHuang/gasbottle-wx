@@ -1,0 +1,608 @@
+.headerDetail{
+	height: 96rpx;
+	box-shadow: 0rpx 4rpx 16rpx 0rpx rgba(145, 168, 195, 0.12);
+	background: radial-gradient(413.00% 69.00% at 50% 0%,rgba(147, 196, 255, 0.2) 1.877%,rgba(227, 236, 255, 0) 100%),rgb(255, 255, 255);
+	position: relative;
+}
+.headerLeft{
+  line-height: 96rpx;
+  padding-left: 32rpx;
+  font-size: 28rpx;
+  font-weight: 400;
+  letter-spacing: 0rpx;
+  text-align: left;
+}
+.affixP{
+  color: rgb(32, 128, 247);
+}
+.headerRight{
+  height: 96rpx;
+  line-height: 96rpx;
+  color: rgb(51, 51, 51);
+  font-size: 32rpx;
+  font-weight: 400;
+  position: absolute;
+  right: 32rpx;
+  top: 0;
+}
+.headerRightImg{
+  width: 48rpx;
+  height: 48rpx;
+  position: absolute;
+  top: 24rpx;
+  left: -48rpx;
+}
+.container{
+  height: 100vh;  
+}
+.fixedBtnPart{
+	box-shadow: 0rpx -8rpx 18rpx 0rpx rgba(0, 0, 0, 0.08);
+	backdrop-filter: blur(21.74rpx);
+	background: rgba(251, 251, 251, 0.8);
+	height: 136rpx;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+  overflow: hidden;
+}
+.van-button--block{
+  width: 90% !important;
+	height: 80rpx !important;
+	line-height: 80rpx !important;
+	margin-top: 22rpx;
+}
+.box{
+  margin-top: 24rpx;
+}
+.normal{
+	color: rgb(29, 184, 76);
+	font-size: 28rpx;
+	font-weight: 500;
+	letter-spacing: 0rpx;
+}
+.unnormal{
+	color: rgb(230, 32, 42);
+	font-size: 28rpx;
+	font-weight: 500;
+	letter-spacing: 0rpx;
+}
+.gray{
+	color: rgb(204, 204, 204);
+	font-size: 28rpx;
+	font-weight: 500;
+	letter-spacing: 0rpx;
+}
+/* .valueImage{
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	left: -3px;
+	top: 0;
+} */
+.box .van-cell-group__title{
+	color: rgb(51, 51, 51) !important;
+	font-size: 28rpx;
+	font-weight: 550;
+	line-height: 36rpx;
+	letter-spacing: 0rpx;
+	text-align: left;
+}
+.box .van-cell__value{
+	-webkit-box-flex: unset !important;
+	-webkit-flex: unset !important;
+	flex: unset !important;
+	width: 170rpx !important;
+	text-align: right;
+}
+.checkPart{
+  padding: 32rpx;
+}
+/* 下面是当前气瓶的弹框 */
+.overlay {
+  height: 50%;
+  background-color: rgb(245, 246, 247);
+  position: relative;
+}
+.overlay2{
+  height: 95%;
+  position: relative;
+  background-color: rgb(245, 246, 247);
+}
+.rotate180{
+  transform: rotate(180deg);
+}
+.info {
+  margin-bottom: 40rpx;
+}
+.coverTitlePart{
+  height: 96rpx;
+  position: relative;
+}
+.coverTitleLeft{
+  color: rgb(0, 0, 0);
+  font-size: 32rpx;
+  font-weight: 550;
+  line-height: 96rpx;
+  letter-spacing: 0rpx;
+  text-align: left;
+  position: absolute;
+  left: 32rpx;
+  top: 0;
+}
+.coverTitleRight{
+  width: 48rpx;
+  height: 48rpx;
+  position: absolute;
+  right: 48rpx;
+  top: 30rpx;
+  color: rgb(0, 0, 0);
+  font-size: 32rpx;
+  font-weight: 500;
+}
+.coverTitleRightImage{
+  width: 36rpx;
+  height: 22rpx;
+  transition: all 0.2s ease;
+}
+.footerPart{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  box-shadow: 0rpx -8rpx 18rpx 0rpx rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(21.74rpx);
+  background: rgba(251, 251, 251, 0.8);
+  height: 128rpx;
+  width: 100%;
+}
+.footerBtn{
+  width: calc(100% - 60rpx);
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  margin-top: 16rpx;
+}
+.coverDetail{
+  height: calc(100% - 224rpx);
+  /* overflow-y: scroll; */
+  position: relative;
+  padding: 0 32rpx;
+}
+.emptyPart{
+  position: relative;
+  width: 280rpx;
+  text-align: center;
+  padding-bottom: 48rpx;
+  top: 80rpx;
+  left: 50%;
+  margin-left: -140rpx;
+}
+.emptyPartText{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  color: rgb(153, 153, 153);
+  font-size: 28rpx;
+  font-weight: 400;
+  letter-spacing: 0rpx;
+  text-align: center;
+}
+.emptyimg{
+  width: 160rpx;
+  height: 160rpx;
+  display: block;
+  margin: 0 auto;
+}
+.blueBtn{
+  background: rgb(61, 117, 244) !important;
+  border-radius: 60rpx !important;
+}
+.fullOver{
+  height: 95%;
+}
+.oneGas{
+  height: 96rpx;
+  /* width: calc(100% - 40px); */
+  border-radius: 16rpx;
+  background: rgb(255, 255, 255);
+  position: relative;
+  margin-bottom: 16rpx;
+  color: rgb(51, 51, 51);
+  font-size: 32rpx;
+  font-weight: 500;
+  line-height: 96rpx;
+  padding-left: 80rpx;
+}
+.gasIcon{
+  width: 22rpx;
+  height: 32rpx;
+  position: absolute;
+  top: 32rpx;
+  left: 32rpx;
+}
+.closeIcon{
+  width: 48rpx;
+  height: 48rpx;
+  position: absolute;
+  top: 24rpx;
+  right: 32rpx;
+}
+.outstoreTag{
+  border-radius: 8rpx;
+  background: rgb(197, 244, 205);
+  color: rgb(29, 184, 76);
+  font-size: 24rpx;
+  font-weight: 400;
+  letter-spacing: 0rpx;
+  padding: 4rpx 8rpx;
+  position: absolute;
+  right: 96rpx;
+  top: 32rpx;
+}
+.gasList{
+  height: 100%;
+  width: 100%;
+  overflow-x:hidden;
+  overflow-y:scroll;
+  box-sizing: border-box;
+}
+.pop{
+  transition: all 0.2s ease;
+}
+.headerDetalTitle{
+	color: rgb(51, 51, 51);
+	font-size: 40rpx;
+	font-weight: 500;
+	line-height: 60rpx;
+	letter-spacing: 0rpx;
+	text-align: left;
+	padding-right: 160rpx;
+	word-break: break-all;
+	margin-bottom: 36rpx;
+}
+.tagImg{
+	position: absolute;
+	width: 192rpx;
+	height: 192rpx;
+	right: -20rpx;
+	top: -20rpx;
+}
+.tagImgInner{
+	width: 100%;
+	height: 100%;
+}
+.oneInfo{
+	position: relative;
+	margin-bottom: 16rpx;
+	min-height: 28rpx;
+}
+.oneInfo-left{
+	color: rgba(0, 0, 0, 0.4);
+	font-size: 28rpx;
+	font-weight: 400;
+	letter-spacing: 0rpx;
+	text-align: left;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 160rpx;
+}
+.oneInfo-right{
+	color: rgb(102, 102, 102);
+	font-size: 28rpx;
+	font-weight: 400;
+	letter-spacing: 0rpx;
+	text-align: left;
+	margin-left: 160rpx;
+}
+.detailInfo{
+	background-color: rgb(245, 245, 245);
+	height: calc(100% - 188rpx);
+	overflow: auto;
+  padding: 24rpx 0;
+}
+.detailInfoNoFooter{
+	margin-bottom: 0rpx;
+}
+.container{
+  display: flex;          /* 使用 Flexbox 布局 */
+  flex-direction: column; /* 子元素垂直排列 */
+  height: 100vh;  
+}
+.caseInfo{
+	border-radius: 16rpx;
+	background-color: #ffffff;
+	overflow: hidden;
+	padding-bottom: 24rpx;
+}
+.caseInfo .van-cell-group__title{
+	color: rgb(51, 51, 51) !important;
+	font-size: 28rpx;
+	font-weight: 550;
+	line-height: 36rpx;
+	letter-spacing: 0rpx;
+	text-align: left;
+}
+.caseInfo .van-cell__value{
+	-webkit-box-flex: unset !important;
+	-webkit-flex: unset !important;
+	flex: unset !important;
+	width: 170rpx !important;
+  text-align: right;
+  position: relative;
+}
+.normal{
+	color: rgb(29, 184, 76);
+	font-size: 28rpx;
+	font-weight: 500;
+	letter-spacing: 0rpx;
+}
+.unnormal{
+	color: rgb(230, 32, 42);
+	font-size: 28rpx;
+	font-weight: 500;
+	letter-spacing: 0rpx;
+}
+.gray{
+	color: rgb(204, 204, 204);
+	font-size: 28rpx;
+	font-weight: 500;
+	letter-spacing: 0rpx;
+}
+.valueP{
+  float: right;
+}
+.valueImage{
+	width: 48rpx;
+	height: 48rpx;
+	/* position: absolute;
+	left: -3px;
+  top: 0; */
+  float: right;
+  display: inline;
+  /* position: relative;
+  top: 6px;
+  left: 4px; */
+}
+
+.valuePart{
+	position: relative;
+}
+.fixedBtnPart{
+	box-shadow: 0rpx -8rpx 18rpx 0rpx rgba(0, 0, 0, 0.08);
+	backdrop-filter: blur(21.74rpx);
+	background: rgba(251, 251, 251, 0.8);
+	height: 136rpx;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+}
+.fixedBtnPart .van-button--block{
+	width: 85%;
+	margin: 0 auto;
+	height: 80rpx;
+	line-height: 80rpx;
+	margin-top: 22rpx;
+}
+.tabPart{
+	height: 100%;
+	position: relative;
+}
+.popTitle{
+	height: 96rpx;
+	text-align: center;
+	color: rgb(0, 0, 0);
+	font-size: 32rpx;
+	font-weight: 550;
+	line-height: 96rpx;
+}
+.popTissue{
+	padding: 24rpx 32rpx;
+}
+.tissueTitle{
+	color: rgb(51, 51, 51);
+	font-size: 28rpx;
+	font-weight: 500;
+	letter-spacing: 0rpx;
+	text-align: left;
+	margin-bottom: 16rpx;
+}
+.tissueDetail{
+	color: rgb(102, 102, 102);
+	font-size: 28rpx;
+	font-weight: 400;
+	letter-spacing: 0rpx;
+	text-align: left;
+}
+.pupBtnFooter{
+	box-shadow: 0rpx -8rpx 18rpx 0rpx rgba(0, 0, 0, 0.08);
+	backdrop-filter: blur(21.74rpx);
+	background: rgba(251, 251, 251, 0.8);
+	height: 128rpx;
+	width: 100%;
+	/* position: absolute;
+	left: 0;
+	bottom: 0; */
+	display: grid;
+	grid-template-columns: 50% 50%;
+}
+.pupBtnFooter2{
+	box-shadow: 0rpx -8rpx 18rpx 0rpx rgba(0, 0, 0, 0.08);
+	backdrop-filter: blur(21.74rpx);
+	background: rgba(251, 251, 251, 0.8);
+	height: 128rpx;
+	width: 100%;
+	/* position: absolute;
+	left: 0;
+	bottom: 0; */
+}
+.btnOuter{
+	padding: 24rpx 0rpx 0 0rpx;
+}
+.btnOuter2{
+	padding: 24rpx 0rpx 0 0rpx;
+}
+.footerBtnOuter .van-button{
+	height: 80rpx;
+	line-height: 80rpx;
+}
+.popTitle2{
+	height: 96rpx;
+	text-align: center;
+	color: rgb(0, 0, 0);
+	font-size: 32rpx;
+	font-weight: 550;
+	line-height: 96rpx;
+	position: relative;
+}
+.lastStep{
+	color: rgb(32, 128, 247);
+	font-size: 28rpx;
+	font-weight: 400;
+	line-height: 96rpx;
+	position: absolute;
+	left: 32rpx;
+	top: 0;
+}
+.graycolor{
+	color: rgba(0, 0, 0, 0.7);
+}
+.nextStep{
+	color: rgb(32, 128, 247);
+	font-size: 28rpx;
+	font-weight: 400;
+	line-height: 96rpx;
+	position: absolute;
+	right: 32rpx;
+	top: 0;
+}
+.formOuter{
+	/* background-color: pink; */
+	/* height: calc(100% - 112px); */
+	position: relative;
+	overflow: auto;
+}
+.formOuter2{
+	position: relative;
+	margin-bottom: 128rpx;
+	padding: 0 32rpx;
+}
+.formTitle{
+	font-size: 28rpx;
+	font-weight: 400;
+	line-height: 48rpx;
+	letter-spacing: 0rpx;
+	text-align: left;
+	margin-left: 32rpx;
+}
+formTitleReuire{
+	font-size: 28rpx;
+	font-weight: 400;
+	line-height: 48rpx;
+	letter-spacing: 0rpx;
+	text-align: left;
+	margin-left: 32rpx;
+}
+.formTitleReuire::after{
+	content: '*';
+	color: red;
+}
+.formOuter .van-cell{
+	margin-bottom: 28rpx !important;
+}
+.formOuter .imgTissue{
+	color: rgb(102, 102, 102);
+	font-size: 28rpx;
+	font-weight: 400;
+	line-height: 68rpx;
+	letter-spacing: 0rpx;
+	text-align: left;
+	margin-left: 32rpx;
+}
+.fileBox{
+	padding: 0 32rpx;
+}
+.oneItemInfo{
+	border-top: 2rpx solid rgba(0, 0, 0, 0.04);
+}
+.itemInfoTitle{
+	color: rgb(153, 153, 153);
+	font-size: 28rpx;
+	font-weight: 400;
+	position: relative;
+}
+.titleBox{
+	line-height: 96rpx;
+}
+.checkStatus{
+	position: absolute;
+	right: 56rpx;
+	top: 0rpx;
+	color: red;
+}
+.checkStatus2{
+	position: absolute;
+	right: 56rpx;
+	top: 0rpx;
+	color: green;
+}
+.checkStatusImg{
+	width: 32rpx;
+	height: 32rpx;
+	position: absolute;
+	left: -36rpx;
+	top: 30rpx;
+}
+.itemInfoDetail{
+	color: rgb(51, 51, 51);
+	font-size: 28rpx;
+	font-weight: 400;
+	padding-bottom: 24rpx;
+}
+.infoImage{
+	width: 160rpx;
+	height: 160rpx;
+	border: 2rpx solid rgba(158, 158, 158, 0.233);
+	margin-right: 16rpx;
+}
+.footerCheckPart{
+	padding-top: 40rpx;
+	padding-left: 36rpx;
+}
+.formTitleBox {
+  position: relative;
+  height: 96rpx;
+  line-height: 96rpx;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.041);
+  margin-bottom: 24rpx;
+}
+.radioCheckOuter{
+  width: 220rpx;
+  height: 100%;
+  position: absolute;
+  right: 20rpx;
+  top: 0rpx;
+}
+.radioCheck{
+  display: inline-block;
+  border: 2rpx solid rgba(0, 0, 0, 0.3);
+  border-radius: 60rpx;
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 28rpx;
+  font-weight: 400;
+  letter-spacing: 0rpx;
+  text-align: center;
+  height: 56rpx;
+  line-height: 56rpx;
+  padding: 0 16rpx;
+}
+.radioCheck + .radioCheck{
+  margin-left: 8rpx;
+}
+.radioCheckActive{
+  color: #ffffff;
+  background-color: rgb(32, 128, 247);
+  border: 2rpx solid rgb(32, 128, 247);
+}

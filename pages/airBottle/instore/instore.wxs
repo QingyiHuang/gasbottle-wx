@@ -1,0 +1,60 @@
+// 检查是否所有气瓶都已经入库，决定按钮是否禁用
+function isInStoreDisabledFunc() {
+  // 如果列表为空或所有项的 instore 属性为 true，则返回 true（即禁用）
+  if (this.data.gasList.length === 0) {
+    return true;
+  }
+  for (var i = 0; i < this.data.gasList.length; i++) {
+    if (this.data.gasList[i].trafficStatus !== 0 && this.data.gasList[i].trafficStatus !== 1) {
+      return false;
+    }
+  }
+  return true;
+}
+
+// 计算需要入库的气瓶数量
+function needInStoreLength(gasList) {
+  // 返回未入库气瓶的数量，如果不存在则返回 0
+  var count = 0;
+  for (var i = 0; i < gasList.length; i++) {
+    if (!gasList[i].instore) {
+      count++;
+    }
+  }
+  return count;
+}
+
+function cancelInstoreDisableFunc(gasList) {
+  if (gasList.length === 0) {
+    return true;
+  }
+  // 遍历 gasList 检查是否有任何一个气瓶已经入库
+  for (var i = 0; i < gasList.length; i++) {
+    if (gasList[i].instore) {
+      return false;
+    }
+  }
+  for (var i = 0; i < gasList.length; i++) {
+    if (gasList[i].trafficStatus === 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
+// 计算可以撤销入库的数量
+function canCancelLength(gasList) {
+  var count2 = 0;
+  for (var j = 0; j < gasList.length; j++) {
+    if (gasList[j].instore) {
+      count2++;
+    }
+  }
+  return count2;
+}
+module.exports = {
+  isInStoreDisabledFunc: isInStoreDisabledFunc,
+  needInStoreLength: needInStoreLength,
+  cancelInstoreDisableFunc: cancelInstoreDisableFunc,
+  canCancelLength: canCancelLength
+};

@@ -1,0 +1,177 @@
+<wxs src="./patroldetail.wxs" module="patroldetailScript"></wxs>
+<view class="container">
+  <view class="headerDetail">
+    <view class="headerDetalTitle">{{detailInfo.name}}</view>
+    <view class="tagImg">
+      <image src="../../images/yinzhang-1.png" class="tagImgInner" wx:if="{{pageType === '4'}}" />
+      <image src="../../images/yinzhang-3.png" class="tagImgInner" wx:elif="{{auditConclusion === '2' && pageType !== '4'}}" />
+      <image src="../../images/yinzhang-2.png" class="tagImgInner" wx:elif="{{auditConclusion === '1' && pageType !== '4'}}" />
+      <image src="../../images/yinzhang-0.png" class="tagImgInner" wx:else />
+    </view>
+    <view class="oneInfo" wx:if="{{pageType === '1'}}">
+      <view class="oneInfo-left">待巡查</view>
+      <view class="oneInfo-right"></view>
+    </view>
+    <view class="oneInfo" wx:if="{{detailInfo.submitTime}}">
+      <view class="oneInfo-left">巡查</view>
+      <view class="oneInfo-right">{{detailInfo.submitUser.personName}}提交于{{detailInfo.submitTime}}</view>
+    </view>
+    <view class="oneInfo" wx:if="{{detailInfo.auditSuggestion}}">
+      <view class="oneInfo-left">审核</view>
+      <view class="oneInfo-right">{{detailInfo.auditUser.personName}}提交于{{detailInfo.auditTime}}</view>
+    </view>
+    <view class="oneInfo" wx:if="{{detailInfo.auditSuggestion}}">
+      <view class="oneInfo-left">意见</view>
+      <view class="oneInfo-right">{{detailInfo.auditSuggestion}}</view>
+    </view>
+  </view>
+  <view class="{{(pageType === '1' || isAudit === 'true') ? 'detailInfo' : 'detailInfo detailInfoNoFooter'}}">
+    <view class="caseInfo">
+      <van-cell-group title="巡查清单">
+        <van-cell wx:for="{{ checkList }}" wx:key="index" data-index="{{ index }}" data-value="{{ item }}" title="{{ item.itemName }}" is-link bindtap="itemClick">
+          <view class="{{ item.itemStatus === '1' ? 'valuePart normal' : (item.itemStatus === '2' ? 'valuePart unnormal' : 'valuePart gray') }}">
+            <view class="valueP">
+              {{ item.patrolValue || '未巡检' }}
+            </view>
+            <image src="../../images/success.png" class="valueImage" wx:if="{{item.itemStatus === '1' && item.patrolValue.length <= 4 }}" />
+            <image src="../../images/error.png" class="valueImage" wx:if="{{item.itemStatus === '2' && item.patrolValue.length <= 4}}" />
+          </view>
+        </van-cell>
+      </van-cell-group>
+    </view>
+  </view>
+  <view class="fixedBtnPart" wx:if="{{ pageType === '1' || (isAudit === 'true' && pageType === '4')}}">
+    <van-button type="primary" color="rgb(61, 117, 244)" round block wx:if="{{isAudit === 'true' && pageType === '4'}}" bindtap="auditPatrol">审核</van-button>
+    <van-button type="primary" color="rgb(61, 117, 244)" disabled="{{!patroldetailScript.isFinisheDisabled(checkList)}}" round block wx:elif="{{canHandle && pageType === '1'}}" bind:tap="finishedPatrol">完成巡查</van-button>
+  </view>
+  <!-- 此处为弹框巡查的弹框 -->
+  <van-popup show="{{ dialogShow }}" round closeable position="bottom" bind:close="onClose1">
+    <view class="tabPart" wx:if="{{ tabActive === 1 }}">
+      <view class="popTitle">
+        企业巡查({{currentObject.index + 1}}/{{checkList.length}})
+      </view>
+      <view class="popTissue">
+        <view class="tissueTitle">
+          {{currentObject.itemName}}
+        </view>
+        <view class="tissueDetail">
+          {{currentObject.itemRule}}
+        </view>
+      </view>
+      <view class="popCheckBox">
+        <van-radio-group value="{{ statu }}">
+          <van-cell-group>
+            <van-cell wx:for="{{patroldetailScript.parseJson(currentObject.itemValue)}}" wx:key="index" title="{{item.value}}" clickable data-name="{{item.orderNum}}" bind:click="onRadioCheck">
+              <van-radio slot="right-icon" name="{{item.orderNum}}" />
+            </van-cell>
+          </van-cell-group>
+        </van-radio-group>
+      </view>
+      <view class="pupBtnFooter">
+        <view class="btnOuter footerBtnOuter">
+          <van-button type="primary" color="rgb(61, 117, 244)" round plain block bindtap="tabCheckDetail">检查结果描述</van-button>
+        </view>
+        <view class="btnOuter2 footerBtnOuter">
+          <van-button type="primary" color="rgb(61, 117, 244)" round block bind:tap="checkNext" loading="{{btnLoading}}">{{ currentObject.index + 1 < checkList.length ? '检查下一项' : '完成检查'}}</van-button>
+        </view>
+      </view>
+    </view>
+    <view class="tabPart" wx:if="{{ tabActive === 2 }}">
+      <view class="popTitle2">
+        <view class="lastStep" bindtap="tabGoBack">上一步</view>
+        检查结果描述({{currentObject.index + 1}}/{{checkList.length}})
+      </view>
+      <view class="formOuter">
+        <view class="{{patroldetailScript.currentIsRequire(currentObject, checkList) ? 'formTitle formTitleReuire' : 'formTitle'}}">
+          描述信息
+        </view>
+        <van-field class="van-text-area" value="{{currentObject.remark}}" rows="3" autosize type="textarea" maxlength="100" placeholder="请输入情况说明，不超过100个汉字" bind:change="onTextFieldChange"/>
+        <view class="{{patroldetailScript.currentIsRequire(currentObject, checkList) ? 'formTitle formTitleReuire' : 'formTitle'}}">
+          图片上传
+        </view>
+        <view class="imgTissue">
+          支持JPG、PNG格式，最大10MB，最多上传3张
+        </view>
+        <view class="fileBox">
+          <van-uploader max-count="3" accept="image" file-list="{{ fileList }}" bind:after-read="afterRead" bind:delete="afterDelete" deletable />
+        </view>
+      </view>
+      <view class="pupBtnFooter2">
+        <view class="btnOuter2 footerBtnOuter">
+          <van-button type="primary" color="rgb(61, 117, 244)" round block bind:tap="checkNext">{{ currentObject.index + 1 < checkList.length ? '检查下一项' : '完成检查'}}</van-button>
+        </view>
+      </view>
+    </view>
+  </van-popup>
+  <van-popup show="{{ dialogShow2 }}" round closeable position="bottom" bind:close="onClose">
+    <view class="tabPart">
+      <view class="popTitle">
+        企业巡查({{currentObject.index + 1}}/{{checkList.length}})
+      </view>
+      <view class="popTissue">
+        <view class="tissueTitle">
+          {{currentObject.itemName}}
+        </view>
+        <view class="tissueDetail">
+          {{currentObject.itemRule}}
+        </view>
+      </view>
+      <view class="formOuter2">
+        <view class="oneItemInfo">
+          <view class="itemInfoTitle titleBox">
+            检查结果
+            <view class="{{currentObject.itemStatus === '1' ? 'checkStatus2' : 'checkStatus'}}">
+              <image src="../../images/success.png" class="checkStatusImg" wx:if="{{currentObject.itemStatus === '1'}}" />
+              <image src="../../images/error.png" class="checkStatusImg" wx:if="{{currentObject.itemStatus === '2'}}" />
+              {{currentObject.patrolValue || '未巡检'}}
+            </view>
+          </view>
+        </view>
+        <view class="oneItemInfo">
+          <view class="itemInfoTitle titleBox">描述信息</view>
+          <view class="itemInfoDetail">
+            {{currentObject.remark || '--'}}
+          </view>
+        </view>
+        <view class="oneItemInfo">
+          <view class="itemInfoTitle titleBox">图片</view>
+          <view class="itemInfoDetail">
+            <image class="infoImage" wx:for="{{currentObject.picUrls}}" wx:key="index" src="{{patroldetailScript.handleImagePreview(item)}}" data-url="{{patroldetailScript.handleImagePreview(item)}}" bind:tap="previewSingleImg"/>
+          </view>
+          
+        </view>
+      </view>
+      <view class="pupBtnFooter">
+        <view class="footerCheckPart">
+          <van-checkbox value="{{ abnormalonly }}" bind:change="onAbnormalOnlyChange">只查看异常项</van-checkbox>
+        </view>
+        <view class="btnOuter2 footerBtnOuter">
+          <van-button type="primary" color="rgb(61, 117, 244)" disabled="{{currentObject.index + 1 >= checkList.length}}" round block bind:tap="previewNext">{{ currentObject.index + 1 < checkList.length ? '下一项' : '没有了'}}</van-button>
+        </view>
+      </view>
+    </view>
+  </van-popup>
+  <van-popup show="{{ dialogShow3 }}" round position="bottom" custom-style="height: 40%" bind:close="onClose">
+    <view class="tabPart">
+      <view class="popTitle2">
+        <view class="lastStep graycolor" bindtap="tabGoBack">取消</view>
+        <view class="nextStep" bindtap="auditConfirm">确定</view>
+        审核
+      </view>
+      <view class="formOuter">
+        <view class="formTitle formTitleReuire formTitleBox">
+          审核结论
+          <view class="radioCheckOuter">
+            <view class="{{ auditActive === 'pass' ? 'radioCheck radioCheckActive' : 'radioCheck' }}" data-name="pass" bind:tap="auditCheck">通过</view>
+            <view class="{{ auditActive === 'back' ? 'radioCheck radioCheckActive' : 'radioCheck' }}" data-name="back" bind:tap="auditCheck">不通过</view>
+          </view>
+        </view>
+        <view class="formTitle formTitleReuire">
+          审核意见
+        </view>
+        <van-field class="van-text-area" value="{{message}}" rows="3" bind:change="onAuditTextFieldChange" autosize type="textarea" maxlength="100" placeholder="请输入审核意见，不超过100个汉字" />
+      </view>
+    </view>
+  </van-popup>
+  <van-dialog id="van-dialog" />
+</view>

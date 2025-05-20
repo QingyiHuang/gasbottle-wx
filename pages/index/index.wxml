@@ -1,0 +1,110 @@
+<view class="scrollvue">
+  <view class="eventPage">
+    <my-footer content="{{arr}}"></my-footer>
+    <view class="bgbank">
+      <image class="bgbankimg" src="../images/banner.png" mode="scaleToFill" />
+      <view class="bgbanktext">
+        <view>
+          <view class="bgbanktext1">
+            <image class="bgbanktext1img" src="../images/icon-info-user-white.png" mode="scaleToFill" />
+            <text>{{ personName }}</text>
+          </view>
+          <view class="bgbanktext2">
+            <text>{{ companyName }}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="statisticBox">
+      <image class="statisticBackImg" src="../images/statisticBack.png" mode="scaleToFill" />
+      <view class="statisticBoxText">
+        <view class="statisticBoxTitle">
+          <view class="statisticBoxTitleText">
+            个人统计
+          </view>
+          <view class="statisticBoxTitleSwitch">
+            <view class="switch-wrapper" bindtap="switchTimeRange" data-type="today">
+              <text class="statisticBoxTitleTextNormal {{ isToday ? 'statisticBoxTitleTextActive' : '' }}">今日</text>
+            </view>
+            <view class="switch-wrapper" bindtap="switchTimeRange" data-type="month">
+              <text class="statisticBoxTitleTextNormal {{ !isToday ? 'statisticBoxTitleTextActive' : '' }}">本月</text>
+            </view>
+          </view>
+        </view>
+        <view class="statisticBoxContent">
+          <view class="oneStatistic">
+            <text class="oneStatisticText">
+              {{storeCount}}
+            </text>
+            <text class="oneStatisticText2">
+              扫码入库
+            </text>
+          </view>
+          <view class="oneStatistic">
+            <text class="oneStatisticText">
+              {{deliveryCount}}
+            </text>
+            <text class="oneStatisticText2">
+              扫码出库
+            </text>
+          </view>
+          <view class="oneStatistic">
+            <text class="oneStatisticText">
+              {{arriveCount}}
+            </text>
+            <text class="oneStatisticText2">
+              扫码签收
+            </text>
+          </view>
+        </view>
+      </view>
+      
+      <view style="text-align: center; padding: 8rpx 0;" wx:if="{{ showStatistic }}">
+        <van-button custom-class="statisticBtn" wx:if="{{showStatistic=='manager'}}" round type="default" bindtap="toStatistic">按企业统计</van-button>
+        <van-button custom-class="statisticBtn" round wx:elif="{{showStatistic=='supervisor'}}" type="default" bindtap="toStatistic">按人员统计</van-button>
+      </view>
+    </view>
+    <view class="centerMenu" wx:if="{{showMenu}}">
+      <view class="menuPart">
+        <block wx:if="{{menuList1 && menuList1.length}}">
+          <view class="mainTitle">
+            <image class="titleIcon" src="../images/zhuangshi.png"></image>气瓶流转
+          </view>
+          <view class="menuContent">
+            <view class="menuItem menuItem1" wx:for="{{menuList1}}" wx:key="index" bindtap="pageJump" data-id="{{item.menuCode}}">
+              <image class="imgSmall" wx:if="{{item.name === '气瓶查询'}}" src="{{item.menuIcon}}"></image>
+              <image wx:else class="imgIcon {{index === 2 ? 'imgIconRight' : ''}}" src="{{item.menuIcon}}"></image>
+              <text class="menuTitle">{{item.name}}</text>
+            </view>
+            <view class="menuItem menuItem4" bindtap="buygas">
+              <image class="imgSmall" src="../images/p1(62).png"></image>
+              <text class="menuTitle">燃气订购</text>
+            </view>
+          </view>
+        </block>
+        <block wx:if="{{menuList2 && menuList2.length}}">
+          <view class="mainTitle">
+            <image class="titleIcon" src="../images/zhuangshi.png"></image>企业燃气监管
+          </view>
+          <view class="menuContent">
+            <view class="menuItem menuItem1" wx:for="{{menuList2}}" wx:key="index" bindtap="pageJump" data-id="{{item.menuCode}}">
+              <image class="imgIcon imgIconRight" src="{{item.menuIcon}}"></image>
+              <text class="menuTitle">{{item.name}}</text>
+            </view>
+          </view>
+        </block>
+        <block wx:if="{{menuList3 && menuList3.length}}">
+          <view class="mainTitle">
+            <image class="titleIcon" src="../images/zhuangshi.png"></image>隐患整改
+          </view>
+          <view class="menuContent">
+            <view class="menuItem menuItem{{index+1}}" wx:for="{{menuList3}}" wx:key="index" bindtap="pageJump" data-id="{{item.menuCode}}">
+              <image class="imgSmall" src="{{item.menuIcon}}"></image>
+              <text class="menuTitle">{{item.name}}</text>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>

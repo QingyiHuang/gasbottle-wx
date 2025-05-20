@@ -1,0 +1,41 @@
+<view class="page-content deal">
+    <van-cell-group>
+        <!-- 文件上传 -->
+        <view class="quzhengbox" wx:if="{{showFileField}}">处置文件</view>
+        <view class="fileBox" wx:if="{{showFileField}}">
+            <van-uploader max-count="5" accept="media" file-list="{{ fileList }}" bind:after-read="afterRead" bind:delete="afterDelete" deletable="{{ true }}" />
+        </view>
+        <!-- 人员选择 -->
+        <van-field wx:if="{{showUserField}}" required value="{{ names }}" label="指派人员" placeholder="请选择人员" right-icon="arrow" clickable readonly bindtap="personPickerShow" />
+        <van-popup wx:if="{{showUserField}}" show="{{chargePersonPickerShow}}" round position="bottom">
+            <view class="title">
+                请选择处置人
+                <view class="checkbox-title">
+                    <van-checkbox value="{{isRegion}}" shape="square" bind:change="onAreaChange">仅所在区域</van-checkbox>
+                </view>
+                <view class="complete-btn" bindtap="complete">完成</view>
+            </view>
+            <van-tree-select items="{{ items }}" active-id="{{activeIds}}" main-active-index="{{activeIndex}}" bind:click-nav="onClickNav" bind:click-item="onClickItem" />
+        </van-popup>
+        <view class="quzhengbox">处理意见</view>
+        <!-- 快速留言选择器，选通用 -->
+        <view class="remark-quick-picker">
+            <view class="picker-content">
+                <van-field class="van-text-area" value="{{message}}" rows="3" autosize type="textarea" maxlength="100" placeholder="请输入情况说明，不超过100个汉字" show-word-limit />
+                <view class="picker-content_wrap">
+                    <view class="option-item" wx:for="{{remarkPickerArr}}" wx:key="index" data-value="{{item}}" bindtap="quickPick">
+                        {{ item }}
+                    </view>
+                </view>
+            </view>
+        </view>
+
+
+        <view class="footer-btn fix">
+            <view style="background: rgb(34, 129, 238);color: #ffffff;text-align: center; height: 50px; line-height: 50px;" bindtap="submit">提 交</view>
+            <!-- <van-button block round type="info"  bindtap="submit">
+                提交
+            </van-button> -->
+        </view>
+    </van-cell-group>
+</view>

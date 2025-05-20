@@ -1,0 +1,36 @@
+<view>
+    <van-search
+        value="{{ value }}"
+        shape="round"
+        background="#ffffff"
+        placeholder="请输入搜索关键词"
+        bind:search="onSearch"
+        bind:change="onSearch"
+        bind:clear="onSearch"
+    />
+    <view class="optBox">
+        <view class="switch-wrapper" bindtap="switchTimeRange" data-type="today">
+            <text class="statisticBoxTitleTextNormal {{ isToday ? 'statisticBoxTitleTextActive' : '' }}">今日</text>
+        </view>
+        <view class="switch-wrapper" bindtap="switchTimeRange" data-type="month">
+            <text class="statisticBoxTitleTextNormal {{ !isToday ? 'statisticBoxTitleTextActive' : '' }}">本月</text>
+        </view>
+    </view>
+    <!-- 列表部分 -->
+    <view class="tableOuter">
+      <view class="tableTitlePart">
+        <view class="title">{{showStatistic === 'manager' ? '企业' : '人员'}}</view>
+        <view class="title">入库</view>
+        <view class="title">出库</view>
+        <view class="title">签收</view>
+      </view>
+      <block wx:for="{{filteredData}}" wx:key="index">
+        <view class="tableContentPart">
+          <view class="content">{{item.name || '--'}}</view>
+          <view class="content">{{item.storeCount || '0'}}</view>
+          <view class="content">{{item.deliveryCount || '0'}}</view>
+          <view class="content">{{item.arriveCount || '0'}}</view>
+        </view>
+      </block>
+    </view>
+</view>

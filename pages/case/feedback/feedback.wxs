@@ -1,0 +1,41 @@
+var parseJson = function(val) {
+	if(val) {
+    return JSON.parse(val)
+  }
+}
+var currentIsRequire = function(currentObject, checkList) {
+  var index = currentObject.index;
+  if (checkList[index] && checkList[index].patrolValue) {
+    var tempArr = JSON.parse(currentObject.itemValue);
+    var aimObj;
+    for (var i = 0; i < tempArr.length; i++) {
+      if (tempArr[i].value === checkList[index].patrolValue) {
+        aimObj = tempArr[i];
+        break;
+      }
+    }
+    if (aimObj) {
+      return aimObj.reportAttachment;
+    }
+  }
+  return false;
+};
+var isFinisheDisabled = function(checkList) {
+  var allStatuNonZero = checkList.every(function(item) {
+    return !!item.patrolValue;
+  });
+  return allStatuNonZero;
+};
+function handleImagePreview(url) {
+  if (url && url.indexOf('http') !== -1) {
+    return url;
+  } else {
+    return 'https://test.com' + url;
+  }
+}
+module.exports = {
+  parseJson: parseJson,
+  currentIsRequire: currentIsRequire,
+  isFinisheDisabled: isFinisheDisabled,
+  handleImagePreview: handleImagePreview
+}

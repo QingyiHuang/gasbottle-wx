@@ -1,0 +1,50 @@
+<!--pages/enterprise/patrol/patrol.wxml-->
+<wxs src="./bottleQuery.wxs" module="bottleQueryScript"></wxs>
+<view class="container">
+  <view class="headerBox">
+    <van-search style="width: 100%;" shape="round" placeholder="请输入搜索关键词" bind:search="keywordChange" bind:change="keywordChange"  value="{{ searchValue }}" />
+    <view class="sandiv" bind:tap="sanCode">
+      <image src="../../images/scan.png" class="scandivimage"/>
+    </view>
+  </view>
+  <view class="headerTool">
+    <van-dropdown-menu active-color="rgb(2, 101, 255)">
+      <van-dropdown-item title="{{dropTitle1}}" value="{{ value1 }}" options="{{ option1 }}" bind:change="dropChange1" />
+      <van-dropdown-item title="{{dropTitle2}}" value="{{ value2 }}" options="{{ option2 }}" bind:change="dropChange2"/>
+      <van-dropdown-item title="{{dropTitle3}}" value="{{ value3 }}" options="{{ option3 }}" bind:change="dropChange3"/>
+    </van-dropdown-menu>
+  </view>
+  <scroll-view class="scrollBox" scroll-y="true" bindscrolltolower="loadMore" refresher-enabled="{{true}}" refresher-threshold="{{45}}" refresher-triggered="{{refreshing}}" bindrefresherrefresh="refreshScroll">
+    <block>
+      <block wx:for="{{listData}}" wx:key="index">
+        <view class="list-item" data-info="{{item}}" bindtap="todetail">
+          <text class="list-item-title">{{item.barCode}}</text>
+          <view 
+            wx:if="{{item.statusName}}"
+            class="list-item-tag {{bottleQueryScript.judgeTag(item.status)}}"
+          >{{item.statusName ||''}}</view>
+          <view class="list-item-content">
+            <view class="oneInfo">
+              <view class="list-item-left">登记单位</view>
+              <view class="list-item-right">{{item.registrationUnit || '--'}}</view>
+            </view>
+            <view class="oneInfo">
+              <view class="list-item-left">流转状态</view>
+              <view class="list-item-right">{{item.trafficStatusName ? (item.trafficStatusName + '|') : ''}}{{item.currentAddress || '--'}}</view>
+            </view>
+            <view class="oneInfo">
+              <view class="list-item-left">下次临检</view>
+              <view class="list-item-right">{{item.examineTime}}</view>
+            </view>
+            <view class="oneInfo">
+              <view class="list-item-left">报废日期</view>
+              <view class="list-item-right">{{item.scrapDate}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+      <view wx:if="{{loadingMore}}" class="loading-more">加载中...</view>
+      <view wx:if="{{noMoreData}}" class="no-more-data">没有更多数据了</view>
+    </block>
+  </scroll-view>
+</view>

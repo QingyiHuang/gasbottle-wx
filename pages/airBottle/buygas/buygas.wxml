@@ -1,0 +1,4 @@
+<!--pages/airBottle/buygas/buygas.wxml-->
+<view>
+  <image class="bgimg" src="../../images/ontheway.png" />
+</view>
